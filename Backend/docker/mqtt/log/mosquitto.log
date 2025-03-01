@@ -448,3 +448,23 @@
 1740825181: mqttjs_5a4267fd data/East/2024/11
 1740825181: mqttjs_5a4267fd 0 deepseek/response
 1740825191: mqttjs_5a4267fd deepseek/response
+1740825671: Client mqttjs_5a4267fd closed its connection.
+1740825674: New connection from 172.19.0.1:64024 on port 1883.
+1740825674: New client connected from 172.19.0.1:64024 as mqttjs_69faf479 (p2, c1, k60).
+1740825674: mqttjs_69faf479 0 matchup/request
+1740825677: Client mqttjs_08e3838c closed its connection.
+1740825680: New connection from 172.19.0.1:63214 on port 1883.
+1740825680: New client connected from 172.19.0.1:63214 as mqttjs_a97538c0 (p2, c1, k60).
+1740825680: mqttjs_a97538c0 0 save/#
+1740825680: mqttjs_a97538c0 0 get/#
+1740825684: Client mqttjs_a5a9f592 closed its connection.
+1740825687: New connection from 172.19.0.1:63218 on port 1883.
+1740825687: New client connected from 172.19.0.1:63218 as mqttjs_40162d5d (p2, c1, k60).
+1740825687: mqttjs_40162d5d 0 deepseek/request
+1740825694: mqttjs_69faf479 0 data/East/2024/6
+1740825694: mqttjs_69faf479 data/East/2024/6
+1740825694: mqttjs_69faf479 0 data/East/2024/11
+1740825694: mqttjs_69faf479 data/East/2024/11
+1740825694: mqttjs_69faf479 0 deepseek/response
+1740825722: mqttjs_69faf479 deepseek/response
+1740825731: Saving in-memory database to /mosquitto/data//mosquitto.db.

@@ -50,7 +50,7 @@ client.on('message', async (topic, message) => {
                     { role: "system", content: "You are a Sports Statistics Expert with 30 years of experience." },
                     { role: "user", content: request.prompt }
                 ],
-                model: "deepseek-chat",
+                model: "deepseek-reasoner",
                 stream: false
             });
 
