@@ -175,3 +175,6 @@ cython_debug/
 
 */march-machine-learning-mania-2024
 *Data
+prepared_data
+
+myenv/
