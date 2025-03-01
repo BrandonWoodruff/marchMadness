@@ -309,3 +309,142 @@
 1740817638: New connection from 172.19.0.1:58958 on port 1883.
 1740817638: New client connected from 172.19.0.1:58958 as mqttjs_df78ab8e (p2, c1, k60).
 1740817639: Client mqttjs_df78ab8e disconnected.
+1740818527: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1740820328: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1740822129: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1740822183: New connection from 172.19.0.1:65218 on port 1883.
+1740822183: New client connected from 172.19.0.1:65218 as mqttjs_a5a9f592 (p2, c1, k60).
+1740822183: mqttjs_a5a9f592 0 deepseek/request
+1740822755: New connection from 172.19.0.1:56812 on port 1883.
+1740822755: New client connected from 172.19.0.1:56812 as mqttx_4d461d9a (p5, c1, k60, u'nodejs').
+1740822755: mqttx_4d461d9a 0 data/test
+1740822755: mqttx_4d461d9a 0 deepseek/response
+1740822822: Client mqttjs_d7f730a0 closed its connection.
+1740822826: New connection from 172.19.0.1:61394 on port 1883.
+1740822826: New client connected from 172.19.0.1:61394 as mqttjs_69356f37 (p2, c1, k60).
+1740822826: mqttjs_69356f37 0 matchup/request
+1740822848: mqttx_4d461d9a 0 matchup/response
+1740822887: mqttjs_69356f37 0 data/2024/undefined
+1740822887: mqttjs_69356f37 data/2024/undefined
+1740822887: mqttjs_69356f37 0 data/2024/undefined
+1740822887: mqttjs_69356f37 data/2024/undefined
+1740822887: mqttjs_69356f37 0 deepseek/response
+1740822899: mqttjs_69356f37 deepseek/response
+1740822899: mqttjs_69356f37 deepseek/response
+1740822899: mqttjs_69356f37 deepseek/response
+1740822916: Client mqttjs_69356f37 closed its connection.
+1740823144: New connection from 172.19.0.1:61166 on port 1883.
+1740823144: New client connected from 172.19.0.1:61166 as mqttjs_ce549811 (p2, c1, k60).
+1740823144: mqttjs_ce549811 0 matchup/request
+1740823149: mqttjs_ce549811 0 data/East/2024/undefined
+1740823149: mqttjs_ce549811 data/East/2024/undefined
+1740823149: mqttjs_ce549811 0 data/East/2024/undefined
+1740823149: mqttjs_ce549811 data/East/2024/undefined
+1740823149: mqttjs_ce549811 0 deepseek/response
+1740823160: mqttjs_ce549811 deepseek/response
+1740823160: mqttjs_ce549811 deepseek/response
+1740823160: mqttjs_ce549811 deepseek/response
+1740823163: Client mqttjs_ce549811 closed its connection.
+1740823218: New connection from 172.19.0.1:58240 on port 1883.
+1740823218: New client connected from 172.19.0.1:58240 as mqttjs_e86449ca (p2, c1, k60).
+1740823218: mqttjs_e86449ca 0 matchup/request
+1740823220: mqttjs_e86449ca 0 data/East/2024/4
+1740823220: mqttjs_e86449ca data/East/2024/4
+1740823220: mqttjs_e86449ca 0 data/East/2024/8
+1740823220: mqttjs_e86449ca data/East/2024/8
+1740823220: mqttjs_e86449ca 0 deepseek/response
+1740823230: mqttjs_e86449ca deepseek/response
+1740823230: mqttjs_e86449ca deepseek/response
+1740823230: mqttjs_e86449ca 0 deepseek/response
+1740823236: mqttjs_e86449ca deepseek/response
+1740823242: Client mqttjs_e86449ca closed its connection.
+1740823379: New connection from 172.19.0.1:60352 on port 1883.
+1740823379: New client connected from 172.19.0.1:60352 as mqttjs_ca36ce8b (p2, c1, k60).
+1740823379: mqttjs_ca36ce8b 0 matchup/request
+1740823488: Client mqttjs_ca36ce8b closed its connection.
+1740823490: New connection from 172.19.0.1:61662 on port 1883.
+1740823490: New client connected from 172.19.0.1:61662 as mqttjs_faa31a48 (p2, c1, k60).
+1740823490: mqttjs_faa31a48 0 matchup/request
+1740823535: Client mqttjs_faa31a48 closed its connection.
+1740823538: New connection from 172.19.0.1:60730 on port 1883.
+1740823538: New client connected from 172.19.0.1:60730 as mqttjs_6e9cba6c (p2, c1, k60).
+1740823538: mqttjs_6e9cba6c 0 matchup/request
+1740823540: mqttjs_6e9cba6c 0 data/East/2024/4
+1740823540: mqttjs_6e9cba6c data/East/2024/4
+1740823540: mqttjs_6e9cba6c 0 data/East/2024/8
+1740823540: mqttjs_6e9cba6c data/East/2024/8
+1740823540: mqttjs_6e9cba6c 0 deepseek/response
+1740823559: mqttjs_6e9cba6c deepseek/response
+1740823559: mqttjs_6e9cba6c 0 deepseek/response
+1740823570: mqttjs_6e9cba6c deepseek/response
+1740823570: mqttjs_6e9cba6c 0 deepseek/response
+1740823580: mqttjs_6e9cba6c deepseek/response
+1740823657: Client mqttjs_6e9cba6c closed its connection.
+1740823659: New connection from 172.19.0.1:64216 on port 1883.
+1740823659: New client connected from 172.19.0.1:64216 as mqttjs_d635b422 (p2, c1, k60).
+1740823659: mqttjs_d635b422 0 matchup/request
+1740823666: mqttjs_d635b422 0 data/East/2024/4
+1740823666: mqttjs_d635b422 data/East/2024/4
+1740823666: mqttjs_d635b422 0 data/East/2024/8
+1740823666: mqttjs_d635b422 data/East/2024/8
+1740823666: mqttjs_d635b422 0 deepseek/response
+1740823675: mqttjs_d635b422 deepseek/response
+1740823884: mqttjs_d635b422 0 data/East/2024/6
+1740823884: mqttjs_d635b422 data/East/2024/6
+1740823884: mqttjs_d635b422 0 data/East/2024/11
+1740823884: mqttjs_d635b422 data/East/2024/11
+1740823884: mqttjs_d635b422 0 deepseek/response
+1740823894: mqttjs_d635b422 deepseek/response
+1740823930: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1740824236: Client mqttjs_d635b422 closed its connection.
+1740824239: New connection from 172.19.0.1:63486 on port 1883.
+1740824239: New client connected from 172.19.0.1:63486 as mqttjs_4f436893 (p2, c1, k60).
+1740824239: mqttjs_4f436893 0 matchup/request
+1740824246: mqttjs_4f436893 0 data/East/2024/6
+1740824246: mqttjs_4f436893 data/East/2024/6
+1740824246: mqttjs_4f436893 0 data/East/2024/11
+1740824246: mqttjs_4f436893 data/East/2024/11
+1740824246: mqttjs_4f436893 0 deepseek/response
+1740824256: mqttjs_4f436893 deepseek/response
+1740824469: Client mqttjs_4f436893 closed its connection.
+1740824472: New connection from 172.19.0.1:61868 on port 1883.
+1740824472: New client connected from 172.19.0.1:61868 as mqttjs_8e3e10e9 (p2, c1, k60).
+1740824472: mqttjs_8e3e10e9 0 matchup/request
+1740824477: mqttjs_8e3e10e9 0 data/East/2024/6
+1740824477: mqttjs_8e3e10e9 data/East/2024/6
+1740824477: mqttjs_8e3e10e9 0 data/East/2024/11
+1740824477: mqttjs_8e3e10e9 data/East/2024/11
+1740824477: mqttjs_8e3e10e9 0 deepseek/response
+1740824489: mqttjs_8e3e10e9 deepseek/response
+1740824510: mqttjs_8e3e10e9 0 data/East/2024/6
+1740824510: mqttjs_8e3e10e9 data/East/2024/6
+1740824510: mqttjs_8e3e10e9 0 data/East/2024/11
+1740824510: mqttjs_8e3e10e9 data/East/2024/11
+1740824510: mqttjs_8e3e10e9 0 deepseek/response
+1740824521: mqttjs_8e3e10e9 deepseek/response
+1740824972: Client mqttjs_8e3e10e9 closed its connection.
+1740824974: New connection from 172.19.0.1:61890 on port 1883.
+1740824974: New client connected from 172.19.0.1:61890 as mqttjs_1756c718 (p2, c1, k60).
+1740824974: mqttjs_1756c718 0 matchup/request
+1740824992: Client mqttjs_1756c718 closed its connection.
+1740825045: New connection from 172.19.0.1:56378 on port 1883.
+1740825045: New client connected from 172.19.0.1:56378 as mqttjs_d5a65009 (p2, c1, k60).
+1740825045: mqttjs_d5a65009 0 matchup/request
+1740825047: Client mqttjs_d5a65009 closed its connection.
+1740825126: New connection from 172.19.0.1:59784 on port 1883.
+1740825126: New client connected from 172.19.0.1:59784 as mqttjs_e6f9ad73 (p2, c1, k60).
+1740825126: mqttjs_e6f9ad73 0 matchup/request
+1740825129: mqttjs_e6f9ad73 0 data/East/2024/6
+1740825129: mqttjs_e6f9ad73 data/East/2024/6
+1740825129: mqttjs_e6f9ad73 0 data/East/2024/11
+1740825129: mqttjs_e6f9ad73 data/East/2024/11
+1740825146: Client mqttjs_e6f9ad73 closed its connection.
+1740825175: New connection from 172.19.0.1:58844 on port 1883.
+1740825175: New client connected from 172.19.0.1:58844 as mqttjs_5a4267fd (p2, c1, k60).
+1740825175: mqttjs_5a4267fd 0 matchup/request
+1740825181: mqttjs_5a4267fd 0 data/East/2024/6
+1740825181: mqttjs_5a4267fd data/East/2024/6
+1740825181: mqttjs_5a4267fd 0 data/East/2024/11
+1740825181: mqttjs_5a4267fd data/East/2024/11
+1740825181: mqttjs_5a4267fd 0 deepseek/response
+1740825191: mqttjs_5a4267fd deepseek/response

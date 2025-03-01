@@ -84,22 +84,36 @@ client.on('message', async (topic, message) => {
         console.log('Received matchup request:', data);
                 
         const game_info = {
-            'team1Seed': data.team1,
-            'team2Seed': data.team2,
-            'round': data.round,
-            'region': data.region,
-            'gameNumber': data.gameNumber,
-            'year': data.year,  // Use provided year or default to current year
-            'winningTeam': null,
-            'losingTeam': null,
-            'winningReason': null,
-            'id': data.round + data.region + data.gameNumber
+            team1Seed: data.team1,  // Changed from data.team1Seed
+            team2Seed: data.team2,  // Changed from data.team2Seed
+            round: data.round,
+            region: data.region,
+            gameNumber: data.gameNumber,
+            year: data.year,
+            id: data.round + data.region + data.gameNumber,
+            team1Preference: data.team1Preference || null,
+            team2Preference: data.team2Preference || null
         }
 
         // Validate required fields
-        if (!game_info.team1 || !game_info.team2) {
+        if (!game_info.team1Seed || !game_info.team2Seed) {
             console.error('Missing required team information');
             return;
+        }
+
+        // Move preference check after game_info is created
+        if (game_info.team1Preference || game_info.team2Preference) {
+            if (game_info.team1Preference === 'Positive') {
+                game_info.team1Preference = 'I have a positive preference for this team. Add a positive preference for this team, and have them win if it makes sense.';
+            } else if (game_info.team1Preference === 'Negative') {
+                game_info.team1Preference = 'I have a negative preference for this team. Add a negative preference for this team, and have them lose if it makes sense.';
+            }
+            
+            if (game_info.team2Preference === 'Positive') {
+                game_info.team2Preference = 'I have a positive preference for this team. Add a positive preference for this team, and have them win if it makes sense.';
+            } else if (game_info.team2Preference === 'Negative') {
+                game_info.team2Preference = 'I have a negative preference for this team. Add a negative preference for this team, and have them lose if it makes sense.';
+            }
         }
 
         // Validate round
@@ -111,37 +125,47 @@ client.on('message', async (topic, message) => {
         console.log('Processing game info:', game_info);
         
         try {
-            let team1Stats = await getTeamStats(game_info.team1, game_info.year);
-            let team2Stats = await getTeamStats(game_info.team2, game_info.year);
+            let team1Stats = await getTeamStats(game_info.team1Seed, game_info.year, game_info.region);
+            let team2Stats = await getTeamStats(game_info.team2Seed, game_info.year, game_info.region);
             console.log(`Team 1 Stats for ${game_info.year}:`, team1Stats);
             console.log(`Team 2 Stats for ${game_info.year}:`, team2Stats);
 
-            // Replace all the if statements with a single check
-            const ruleResult = checkSeedRules(team1Stats, team2Stats, game_info);
-            if (ruleResult) {
-                winningTeam = ruleResult.winningTeam;
-                losingTeam = ruleResult.losingTeam;
-                winningReason = ruleResult.winningReason;
-            } else {
-                // Get the game winner if no rules applied
-                let gameWinner, gameLoser, reason;
-                gameWinner, gameLoser, reason = await getGameWinner(game_info, team1Stats, team2Stats);
-                winningTeam = gameWinner;
-                losingTeam = gameLoser;
-                winningReason = reason;
+            if (!team1Stats.TeamName || !team2Stats.TeamName) {
+                throw new Error('Missing team information in stats');
             }
 
-            console.log(`Winner: ${winningTeam}, Loser: ${losingTeam}, Reason: ${winningReason}`);
+            // Update game_info with actual team names
+            game_info.team1 = team1Stats.TeamName;
+            game_info.team2 = team2Stats.TeamName;
+
+            let winningTeam, losingTeam, winningReason, winPercentage;
+
+            // Fix the preference check to use game_info properties
+            const ruleResult = (!game_info.team1Preference && !game_info.team2Preference) 
+                ? checkSeedRules(team1Stats, team2Stats, game_info)
+                : null;
+
+            if (ruleResult) {
+                ({winningTeam, losingTeam, winningReason} = ruleResult);
+                winPercentage = 100; // Always 100% for seed rules
+            } else {
+                const result = await getGameWinner(game_info, team1Stats, team2Stats);
+                [winningTeam, losingTeam, winningReason, winPercentage] = result;
+            }
+
+            console.log(`Winner: ${winningTeam}, Loser: ${losingTeam}, Win%: ${winPercentage}%, Reason: ${winningReason}`);
             client.publish('matchup/response', JSON.stringify({
                 team1: game_info.team1,
                 team2: game_info.team2,
                 winner: winningTeam,
                 loser: losingTeam,
-                reason: winningReason
+                reason: winningReason,
+                winPercentage: winPercentage
             }));
 
         } catch (error) {
-            console.error('Error getting team stats:', error);
+            console.error('Error processing game:', error);
+            return;
         }
     }
 });
@@ -150,7 +174,7 @@ client.on('error', (error) => {
     console.error('Error:', error);
 });
 
-const getTeamStats = (team, year) => {
+const getTeamStats = (team, year, region) => {
     return new Promise((resolve, reject) => {
         console.log(`Requesting stats for ${team} (${year})`);
         const timeout = setTimeout(() => {
@@ -159,10 +183,10 @@ const getTeamStats = (team, year) => {
 
         const messageHandler = (topic, message) => {
             console.log(`Received message on topic: ${topic}`);
-            if (topic === `data/${year}/${team}`) {
+            if (topic === `data/${region}/${year}/${team}`) {
                 clearTimeout(timeout);
                 client.removeListener('message', messageHandler);
-                client.unsubscribe(`data/${year}/${team}`);
+                client.unsubscribe(`data/${region}/${year}/${team}`);
                 try {
                     const data = JSON.parse(message.toString());
                     if (data === null) {
@@ -179,20 +203,26 @@ const getTeamStats = (team, year) => {
             }
         };
 
-        client.subscribe(`data/${year}/${team}`);
+        client.subscribe(`data/${region}/${year}/${team}`);
         client.on('message', messageHandler);
-        client.publish(`get/${year}/${team}`, '');
+        client.publish(`get/${region}/${year}/${team}`, '');
     });
 };
 
 const validateAIResponse = (data, game_info) => {
     // Check if all required fields exist
-    const requiredFields = ['Winning Team', 'Losing Team', 'Winning Reason'];
-    const hasAllFields = requiredFields.every(field => 
-        typeof data[field] === 'string' && data[field].trim() !== ''
-    );
+    const requiredFields = ['Winning Team', 'Losing Team', 'Winning Reason', 'Win Percentage'];
+    const hasAllFields = requiredFields.every(field => {
+        if (field === 'Win Percentage') {
+            return typeof data[field] === 'number' && 
+                   data[field] >= 0 && 
+                   data[field] <= 100;
+        }
+        return typeof data[field] === 'string' && data[field].trim() !== '';
+    });
+    
     if (!hasAllFields) {
-        throw new Error('AI response missing required fields or contains empty values');
+        throw new Error('AI response missing required fields, contains empty values, or invalid win percentage');
     }
 
     // Verify teams mentioned are actually the teams in the matchup
@@ -209,7 +239,8 @@ const validateAIResponse = (data, game_info) => {
     return {
         winningTeam: data['Winning Team'],
         losingTeam: data['Losing Team'],
-        winningReason: data['Winning Reason']
+        winningReason: data['Winning Reason'],
+        winPercentage: data['Win Percentage']
     };
 };
 
@@ -220,7 +251,7 @@ const requestAIResponse = async (game_info, team1Stats, team2Stats, attempt = 1)
         console.log(`Requesting game winner (attempt ${attempt}/${MAX_RETRIES}) for ${game_info.team1} vs ${game_info.team2}`);
         const timeout = setTimeout(() => {
             reject(new Error('Timeout waiting for game winner'));
-        }, 5000);
+        }, 30000); // Increased timeout to 30 seconds
 
         const messageHandler = (topic, message) => {
             if (topic === 'deepseek/response') {
@@ -234,13 +265,16 @@ const requestAIResponse = async (game_info, team1Stats, team2Stats, attempt = 1)
         const message = {
             id: game_info.id,
             prompt: `Attempt ${attempt}/${MAX_RETRIES}: Who will win the matchup between ${game_info.team1} and ${game_info.team2}? 
-            Your response MUST be a JSON object with EXACTLY these three fields:
+            ${game_info.team1Preference ? `Note for ${game_info.team1}: ${game_info.team1Preference}` : ''}
+            ${game_info.team2Preference ? `Note for ${game_info.team2}: ${game_info.team2Preference}` : ''}
+            Your response MUST be a JSON object with EXACTLY these four fields:
             {
                 "Winning Team": "${game_info.team1} or ${game_info.team2}",
                 "Losing Team": "${game_info.team1} or ${game_info.team2}",
-                "Winning Reason": "Your explanation here"
+                "Winning Reason": "Your explanation here",
+                "Win Percentage": number between 0 and 100
             }
-            The team names must exactly match what was provided. No other format will be accepted.`,
+            The team names must exactly match what was provided. Win Percentage must be a number. No other format will be accepted.`,
             team1: team1Stats,
             team2: team2Stats
         };
@@ -251,15 +285,60 @@ const requestAIResponse = async (game_info, team1Stats, team2Stats, attempt = 1)
     });
 };
 
+// Add this new function
+const extractJsonFromResponse = (response) => {
+    try {
+        const parsed = JSON.parse(response);
+        if (parsed.content) {
+            // Extract JSON from markdown code block
+            const match = parsed.content.match(/```json\n([\s\S]*?)\n```/);
+            if (match && match[1]) {
+                return JSON.parse(match[1]);
+            }
+        }
+        return parsed; // fallback to original parse if no markdown wrapper
+    } catch (error) {
+        console.error('Error extracting JSON from response:', error);
+        console.debug('Raw response:', response);
+        throw error;
+    }
+};
+
+const calculateUpset = (validatedResult) => {
+    const roll = Math.floor(Math.random() * 100) + 1; // 1-100
+    console.log(`Win Percentage: ${validatedResult.winPercentage}%, Rolled: ${roll}`);
+    
+    if (roll > validatedResult.winPercentage) {
+        // Upset occurs
+        return {
+            winningTeam: validatedResult.losingTeam,
+            losingTeam: validatedResult.winningTeam,
+            winningReason: `UPSET! ${validatedResult.losingTeam} defied the ${validatedResult.winPercentage}% odds against them!`,
+            winPercentage: 100 - validatedResult.winPercentage // Invert the win percentage for upsets
+        };
+    }
+    
+    return validatedResult;
+};
+
 const getGameWinner = async (game_info, team1Stats, team2Stats) => {
     let attempt = 1;
     while (attempt <= MAX_RETRIES) {
         try {
             const message = await requestAIResponse(game_info, team1Stats, team2Stats, attempt);
-            const data = JSON.parse(message.toString());
-            const validatedResult = validateAIResponse(data, game_info);
+            console.debug('Raw AI response:', message.toString()); // Add debug logging
+            const rawData = extractJsonFromResponse(message.toString());
+            const validatedResult = validateAIResponse(rawData, game_info);
             console.log(`Successfully validated game winner on attempt ${attempt}`);
-            return [validatedResult.winningTeam, validatedResult.losingTeam, validatedResult.winningReason];
+            
+            // Calculate potential upset
+            const finalResult = calculateUpset(validatedResult);
+            return [
+                finalResult.winningTeam, 
+                finalResult.losingTeam, 
+                finalResult.winningReason,
+                finalResult.winPercentage // Add win percentage to return array
+            ];
         } catch (error) {
             console.error(`Attempt ${attempt} failed:`, error.message);
             if (attempt === MAX_RETRIES) {
