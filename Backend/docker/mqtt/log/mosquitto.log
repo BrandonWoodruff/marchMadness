@@ -19,3 +19,11 @@
 1740794217: mqttx_4d461d9a 0 file/markdown
 1740794224: mqttx_4d461d9a 0 testtopic/#
 1740794234: Client mqttx_4d461d9a closed its connection.
+1740795084: mosquitto version 2.0.20 terminating
+1740795084: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1740795089: mosquitto version 2.0.20 starting
+1740795089: Config loaded from /mosquitto/config/mosquitto.conf.
+1740795089: Opening ipv4 listen socket on port 1883.
+1740795089: Opening ipv6 listen socket on port 1883.
+1740795089: Opening websockets listen socket on port 9001.
+1740795089: mosquitto version 2.0.20 running
