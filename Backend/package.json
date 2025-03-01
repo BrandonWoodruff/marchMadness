@@ -1,0 +1,9 @@
+{
+  "name": "march-madness-dbm",
+  "version": "1.0.0",
+  "main": "dbm.js",
+  "dependencies": {
+    "mqtt": "^4.3.7",
+    "pg": "^8.7.1"
+  }
+}
