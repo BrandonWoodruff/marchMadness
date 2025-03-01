@@ -1,35 +1,44 @@
-name: marchMadness
+version: '3.8'
 
 services:
-
   postgres:
+    container_name: postgres_db
     image: postgres:latest
     restart: always
     environment:
-
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=marchMadness
     ports:
       - "5432:5432"
     volumes:
-    - ./database-seed.sql:/docker-entrypoint-initdb.d/database-seed.sql
+      - ./init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U root -d marchMadness"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - mosquitto
 
   # PostgreSQL pgAdmin panel accessible at http://localhost:16543/
   pgadmin-compose:
+    container_name: pgadmin_service
     image: dpage/pgadmin4:latest
     environment:
       PGADMIN_DEFAULT_EMAIL: "brandon@gmail.com"
       PGADMIN_DEFAULT_PASSWORD: "all4Postgres!"
+      PGPASSWORD: root
     ports:
       - "16543:80"
     depends_on:
       - postgres
+    networks:
+      - mosquitto
 
   mqtt_server:
-    image: eclipse-mosquitto
     container_name: mqtt_server
-
+    image: eclipse-mosquitto
     ports:
      - 1883:1883
      - 9001:9001
@@ -41,7 +50,9 @@ services:
       - ./docker/mqtt/log:/mosquitto/log:rw
       - ./scripts:/scripts
     restart: always
-  
+    networks:
+      - mosquitto
+
 volumes:
   config:
   data:
@@ -50,5 +61,4 @@ volumes:
 
 networks:
   mosquitto:
-    name: mosquitto
     driver: bridge
