@@ -27,6 +27,14 @@
 1740795089: Opening ipv6 listen socket on port 1883.
 1740795089: Opening websockets listen socket on port 9001.
 1740795089: mosquitto version 2.0.20 running
+<<<<<<< HEAD
+1740829832: mosquitto version 2.0.20 starting
+1740829832: Config loaded from /mosquitto/config/mosquitto.conf.
+1740829832: Opening ipv4 listen socket on port 1883.
+1740829832: Opening ipv6 listen socket on port 1883.
+1740829832: Opening websockets listen socket on port 9001.
+1740829832: mosquitto version 2.0.20 running
+=======
 1740795309: mosquitto version 2.0.20 terminating
 1740795309: Saving in-memory database to /mosquitto/data//mosquitto.db.
 1740795320: mosquitto version 2.0.20 starting
@@ -468,6 +476,7 @@
 1740825694: mqttjs_69faf479 0 deepseek/response
 1740825722: mqttjs_69faf479 deepseek/response
 1740825731: Saving in-memory database to /mosquitto/data//mosquitto.db.
+<<<<<<< HEAD
 1740826831: mqttx_4d461d9a 0 data/east/2024/6
 1740826850: mqttx_4d461d9a data/east/2024/6
 1740826857: mqttx_4d461d9a 0 data/East/2024/6
@@ -488,3 +497,6 @@
 1740839287: New connection from 172.19.0.1:61886 on port 1883.
 1740839287: New client connected from 172.19.0.1:61886 as mqttjs_2281c74e (p2, c1, k60).
 1740839287: mqttjs_2281c74e 0 deepseek/request
+=======
+>>>>>>> origin/main
+>>>>>>> mybranch
