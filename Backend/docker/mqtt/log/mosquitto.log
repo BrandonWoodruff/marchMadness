@@ -212,3 +212,100 @@
 1740801587: New connection from 172.19.0.1:56688 on port 1883.
 1740801587: New client connected from 172.19.0.1:56688 as mqttjs_e4987aac (p2, c1, k60).
 1740801587: mqttjs_e4987aac 0 deepseek/request
+1740801704: Client mqttjs_e4987aac closed its connection.
+1740801991: Client mqttx_4d461d9a has exceeded timeout, disconnecting.
+1740801996: New connection from 172.19.0.1:65104 on port 1883.
+1740802006: Client <unknown> closed its connection.
+1740802012: New connection from 172.19.0.1:56122 on port 1883.
+1740802022: Client <unknown> closed its connection.
+1740802058: New connection from 172.19.0.1:62208 on port 1883.
+1740802117: Client <unknown> closed its connection.
+1740802177: New connection from 172.19.0.1:55496 on port 1883.
+1740802237: Client <unknown> closed its connection.
+1740802298: New connection from 172.19.0.1:63060 on port 1883.
+1740802357: Client <unknown> closed its connection.
+1740802417: New connection from 172.19.0.1:65208 on port 1883.
+1740802477: Client <unknown> closed its connection.
+1740802537: New connection from 172.19.0.1:57448 on port 1883.
+1740802597: Client <unknown> closed its connection.
+1740802658: New connection from 172.19.0.1:59826 on port 1883.
+1740802717: Client <unknown> closed its connection.
+1740802726: New connection from 172.19.0.1:56714 on port 1883.
+1740802726: New client connected from 172.19.0.1:56714 as mqttjs_bc6aa2ed (p2, c1, k60).
+1740802726: mqttjs_bc6aa2ed 0 deepseek/request
+1740802729: New connection from 172.19.0.1:56718 on port 1883.
+1740802739: New client connected from 172.19.0.1:56718 as mqttx_4d461d9a (p5, c1, k60, u'nodejs').
+1740802739: mqttx_4d461d9a 0 data/test
+1740802739: mqttx_4d461d9a 0 deepseek/response
+1740802936: Client mqttjs_bc6aa2ed closed its connection.
+1740802983: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1740804144: New connection from 172.19.0.1:59154 on port 1883.
+1740804144: New client connected from 172.19.0.1:59154 as mqttjs_bd982617 (p2, c1, k60).
+1740804144: mqttjs_bd982617 0 matchup/request
+1740804487: Client mqttjs_bd982617 closed its connection.
+1740804784: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1740805472: New connection from 172.19.0.1:60764 on port 1883.
+1740805472: New client connected from 172.19.0.1:60764 as mqttjs_e00db5b3 (p2, c1, k60).
+1740805472: mqttjs_e00db5b3 0 save/#
+1740805472: mqttjs_e00db5b3 0 get/#
+1740805504: New connection from 172.19.0.1:65244 on port 1883.
+1740805504: New client connected from 172.19.0.1:65244 as mqttjs_97f1aab0 (p2, c1, k60).
+1740805504: mqttjs_97f1aab0 0 matchup/request
+1740805530: Client mqttjs_97f1aab0 closed its connection.
+1740805601: New connection from 172.19.0.1:63340 on port 1883.
+1740805601: New client connected from 172.19.0.1:63340 as mqttjs_3461c418 (p2, c1, k60).
+1740805601: mqttjs_3461c418 0 matchup/request
+1740805604: mqttjs_3461c418 0 data/undefined/BYU
+1740805604: mqttjs_3461c418 data/undefined/BYU
+1740805604: mqttjs_3461c418 0 data/undefined/UofU
+1740805604: mqttjs_3461c418 data/undefined/UofU
+1740805610: Client mqttjs_3461c418 closed its connection.
+1740805696: Client mqttjs_e00db5b3 closed its connection.
+1740805700: New connection from 172.19.0.1:61096 on port 1883.
+1740805700: New client connected from 172.19.0.1:61096 as mqttjs_08e3838c (p2, c1, k60).
+1740805700: mqttjs_08e3838c 0 save/#
+1740805700: mqttjs_08e3838c 0 get/#
+1740805705: New connection from 172.19.0.1:61106 on port 1883.
+1740805705: New client connected from 172.19.0.1:61106 as mqttjs_d7f730a0 (p2, c1, k60).
+1740805705: mqttjs_d7f730a0 0 matchup/request
+1740805708: mqttjs_d7f730a0 0 data/2025/BYU
+1740805708: mqttjs_d7f730a0 data/2025/BYU
+1740805708: mqttjs_d7f730a0 0 data/2025/UofU
+1740805708: mqttjs_d7f730a0 data/2025/UofU
+1740805729: mqttjs_d7f730a0 0 data/2024/BYU
+1740805729: mqttjs_d7f730a0 data/2024/BYU
+1740805729: mqttjs_d7f730a0 0 data/2024/UofU
+1740805729: mqttjs_d7f730a0 data/2024/UofU
+1740806585: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1740808386: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1740808844: Client mqttx_4d461d9a has exceeded timeout, disconnecting.
+1740808844: Client mqttjs_08e3838c has exceeded timeout, disconnecting.
+1740808844: Client mqttjs_d7f730a0 has exceeded timeout, disconnecting.
+1740808845: New connection from 172.19.0.1:60830 on port 1883.
+1740808845: New client connected from 172.19.0.1:60830 as mqttjs_08e3838c (p2, c1, k60).
+1740808845: mqttjs_08e3838c 0 save/#
+1740808845: mqttjs_08e3838c 0 get/#
+1740808845: New connection from 172.19.0.1:60838 on port 1883.
+1740808845: New client connected from 172.19.0.1:60838 as mqttjs_d7f730a0 (p2, c1, k60).
+1740808845: mqttjs_d7f730a0 0 matchup/request
+1740808848: New connection from 172.19.0.1:60850 on port 1883.
+1740808858: Client <unknown> closed its connection.
+1740808862: New connection from 172.19.0.1:65504 on port 1883.
+1740808862: New client connected from 172.19.0.1:65504 as mqttx_4d461d9a (p5, c1, k60, u'nodejs').
+1740808958: Client mqttx_4d461d9a has exceeded timeout, disconnecting.
+1740810187: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1740813124: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1740813124: Client mqttjs_08e3838c has exceeded timeout, disconnecting.
+1740813124: Client mqttjs_d7f730a0 has exceeded timeout, disconnecting.
+1740813125: New connection from 172.19.0.1:60712 on port 1883.
+1740813125: New connection from 172.19.0.1:60728 on port 1883.
+1740813125: New client connected from 172.19.0.1:60712 as mqttjs_d7f730a0 (p2, c1, k60).
+1740813125: New client connected from 172.19.0.1:60728 as mqttjs_08e3838c (p2, c1, k60).
+1740813125: mqttjs_d7f730a0 0 matchup/request
+1740813125: mqttjs_08e3838c 0 save/#
+1740813125: mqttjs_08e3838c 0 get/#
+1740814925: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1740816726: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1740817638: New connection from 172.19.0.1:58958 on port 1883.
+1740817638: New client connected from 172.19.0.1:58958 as mqttjs_df78ab8e (p2, c1, k60).
+1740817639: Client mqttjs_df78ab8e disconnected.
