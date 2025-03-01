@@ -168,7 +168,16 @@
 │   ├── WTeams.csv
 │   └── sample_submission.csv
 ├── MachineLearningAlgo
+│   ├── datacleaning.py
+│   ├── regular_season_cleaning.ipynb
 │   ├── seed_data_prep.ipynb
-│   └── datacleaning.py
+│   └── team_feature_converter.py
+├── prepared_data
+│   ├── processed_team_stats_2019_2024.csv
+│   ├── processed_team_stats_2019_2024.json
+│   ├── team_features.csv
+│   ├── team_features.json
+│   ├── tournament_matchups.csv
+│   └── tournament_matchups.json
 ├── README.md
-└── code-style.md
+├── copilot-instructions.md
