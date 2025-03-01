@@ -168,7 +168,7 @@
 │   ├── WTeams.csv
 │   └── sample_submission.csv
 ├── MachineLearningAlgo
-│   ├── data_cleaning.ipynb
+│   ├── seed_data_prep.ipynb
 │   └── datacleaning.py
 ├── README.md
 └── code-style.md
