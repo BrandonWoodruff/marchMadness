@@ -5,6 +5,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+mosquitto.log
+mosquitto.db
 # C extensions
 *.so
 
