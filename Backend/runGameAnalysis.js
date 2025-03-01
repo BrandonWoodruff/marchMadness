@@ -87,7 +87,8 @@ client.on('message', async (topic, message) => {
             team1Seed: data.team1,  // Changed from data.team1Seed
             team2Seed: data.team2,  // Changed from data.team2Seed
             round: data.round,
-            region: data.region,
+            team1Region: data.team1Region,
+            team2Region: data.team2Region,
             gameNumber: data.gameNumber,
             year: data.year,
             id: data.round + data.region + data.gameNumber,
@@ -125,8 +126,8 @@ client.on('message', async (topic, message) => {
         console.log('Processing game info:', game_info);
         
         try {
-            let team1Stats = await getTeamStats(game_info.team1Seed, game_info.year, game_info.region);
-            let team2Stats = await getTeamStats(game_info.team2Seed, game_info.year, game_info.region);
+            let team1Stats = await getTeamStats(game_info.team1Seed, game_info.year, game_info.team1Region);
+            let team2Stats = await getTeamStats(game_info.team2Seed, game_info.year, game_info.team2Region);
             console.log(`Team 1 Stats for ${game_info.year}:`, team1Stats);
             console.log(`Team 2 Stats for ${game_info.year}:`, team2Stats);
 
