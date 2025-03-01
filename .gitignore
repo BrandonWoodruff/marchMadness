@@ -178,3 +178,5 @@ cython_debug/
 prepared_data
 
 myenv/
+*jpg
+*png
