@@ -1,3 +1,5 @@
+node_modules
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -175,3 +177,4 @@ cython_debug/
 
 */march-machine-learning-mania-2024
 *Data
+
