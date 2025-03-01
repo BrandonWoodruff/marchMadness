@@ -47,7 +47,7 @@ client.on('message', async (topic, message) => {
 
             const completion = await openai.chat.completions.create({
                 messages: [
-                    { role: "system", content: "You are a helpful assistant." },
+                    { role: "system", content: "You are a Sports Statistics Expert with 30 years of experience." },
                     { role: "user", content: request.prompt }
                 ],
                 model: "deepseek-chat",

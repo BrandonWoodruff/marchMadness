@@ -1,5 +1,6 @@
-const mqtt = require('mqtt');
-const { Pool } = require('pg');
+import mqtt from 'mqtt';
+import pkg from 'pg';
+const { Pool } = pkg;
 
 // Database configuration
 const pool = new Pool({
@@ -9,6 +10,26 @@ const pool = new Pool({
     password: 'root',
     port: 5432,
 });
+
+// Add after pool creation but before MQTT setup
+const initializeDatabase = async () => {
+    try {
+        await pool.query(`
+            CREATE SCHEMA IF NOT EXISTS "marchMadness";
+            CREATE TABLE IF NOT EXISTS "marchMadness"."data_store" (
+                datapath TEXT PRIMARY KEY,
+                data JSONB,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            );
+        `);
+        console.log('Database schema initialized');
+    } catch (error) {
+        console.error('Error initializing database:', error);
+    }
+};
+
+// Call initialization
+initializeDatabase();
 
 // MQTT client setup
 const client = mqtt.connect('mqtt://localhost:1883');  // Changed from mqtt_server to localhost
@@ -46,20 +67,23 @@ client.on('message', async (topic, message) => {
         }
     }
 
+    // Modify the get handler for better debugging
     if (action === 'get') {
         try {
+            console.log(`Attempting to retrieve data for path: ${datapath}`);
             const query = 'SELECT data FROM "marchMadness"."data_store" WHERE datapath = $1';
             const result = await pool.query(query, [datapath]);
             
             if (result.rows.length > 0) {
-                // Publish the data back
+                console.log(`Found data for path: ${datapath}`);
                 client.publish(`data/${datapath}`, JSON.stringify(result.rows[0].data));
-                console.log(`Retrieved and published data for path: ${datapath}`);
             } else {
+                console.log(`No data found for path: ${datapath}`);
                 client.publish(`data/${datapath}`, JSON.stringify(null));
             }
         } catch (error) {
             console.error('Error retrieving data:', error);
+            client.publish(`data/${datapath}`, JSON.stringify({ error: error.message }));
         }
     }
 });
