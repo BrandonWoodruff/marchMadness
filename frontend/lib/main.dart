@@ -2,9 +2,9 @@
 // main.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'models/matchup.dart';
-import 'models/team.dart';
-import 'providers/bracket_provider.dart';
+//import 'models/matchup.dart';
+//import 'models/team.dart';
+import 'src/providers/bracket_provider.dart';
 import 'app.dart';
 
 void main() {

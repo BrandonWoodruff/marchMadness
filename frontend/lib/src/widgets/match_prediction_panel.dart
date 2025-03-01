@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../models/matchup.dart';
+//import '../models/matchup.dart';
 import '../providers/selected_matchup_provider.dart';
 
 class MatchPredictionPanel extends ConsumerWidget {

@@ -1,4 +1,4 @@
-import 'package:frontend/models/team.dart';
+import 'package:frontend/src/models/team.dart';
 
 class Matchup {
   final Team team1;

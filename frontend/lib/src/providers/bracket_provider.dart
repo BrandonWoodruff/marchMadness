@@ -1,7 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'dart:math';
+//import 'dart:math';
 import '../models/matchup.dart';
-import '../models/team.dart';
+import 'package:frontend/src/models/team.dart';
+
 
 class BracketNotifier extends StateNotifier<List<Matchup>> {
   BracketNotifier() : super([]);

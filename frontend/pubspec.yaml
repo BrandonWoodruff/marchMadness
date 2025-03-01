@@ -35,8 +35,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   flutter_riverpod: ^2.0.0
-  flutter_tournament_bracket:
-    path: ./flutter_tournament_bracket
+  mqtt_client: ^9.6.1
+  # flutter_tournament_bracket:
+  #   path: ./flutter_tournament_bracket
   # flutter_tournament_bracket: ^1.0.5
 
 dev_dependencies:
