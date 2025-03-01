@@ -14,6 +14,11 @@ final tournamentsStreamProvider = StreamProvider<List<Tournament>>((ref) {
     'flutter_client_${DateTime.now().millisecondsSinceEpoch}',
   );
   
+  // Register a dispose callback to clean up resources
+  ref.onDispose(() {
+    pubSubClient.disconnect();
+  });
+  
   // Subscribe to your topic, e.g., "get/East/2024/6"
   final stream = pubSubClient.subscribe("get/East/2024/6").map((message) {
     final jsonData = jsonDecode(message);

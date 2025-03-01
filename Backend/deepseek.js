@@ -17,7 +17,6 @@ if (!process.env.DS_API_KEY || !process.env.DS_API_KEY.startsWith('sk-')) {
 }
 
 const openai = new OpenAI({
-    baseURL: 'https://api.deepseek.com',
     apiKey: process.env.DS_API_KEY,
     defaultHeaders: {
         'Content-Type': 'application/json'
@@ -31,11 +30,11 @@ const client = mqtt.connect('mqtt://localhost:1883');
 
 client.on('connect', () => {
     console.log('Connected to MQTT broker');
-    client.subscribe('deepseek/request');
+    client.subscribe('chatgpt/request');
 });
 
 client.on('message', async (topic, message) => {
-    if (topic === 'deepseek/request') {
+    if (topic === 'chatgpt/request') {
         console.log('Received request:', message.toString());
         let request;
         try {
@@ -50,7 +49,7 @@ client.on('message', async (topic, message) => {
                     { role: "system", content: "You are a Sports Statistics Expert with 30 years of experience." },
                     { role: "user", content: request.prompt }
                 ],
-                model: "deepseek-reasoner",
+                model: "gpt-4",
                 stream: false
             });
 
@@ -61,7 +60,7 @@ client.on('message', async (topic, message) => {
             };
 
             console.log('Sending response:', response);
-            client.publish('deepseek/response', JSON.stringify(response));
+            client.publish('chatgpt/response', JSON.stringify(response));
         } catch (error) {
             console.error('Error details:', {
                 message: error.message,
@@ -75,7 +74,7 @@ client.on('message', async (topic, message) => {
                 status: error.status || 500,
                 details: error.cause ? error.cause.code : undefined
             };
-            client.publish('deepseek/response', JSON.stringify(errorResponse));
+            client.publish('chatgpt/response', JSON.stringify(errorResponse));
         }
     }
 });

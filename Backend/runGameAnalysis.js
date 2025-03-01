@@ -5,7 +5,7 @@ const client = mqtt.connect('mqtt://localhost:1883');
 
 client.on('connect', () => {
     console.log('Connected to MQTT broker');
-    client.subscribe('matchup/request');
+    client.subscribe('bracket/request');
 });
 
 const TournamentRound = {
@@ -79,90 +79,328 @@ const checkSeedRules = (team1Stats, team2Stats, game_info) => {
 };
 
 client.on('message', async (topic, message) => {
-    if (topic === 'matchup/request') {
+    if (topic === 'bracket/request') {
         const data = JSON.parse(message.toString());
-        console.log('Received matchup request:', data);
+        console.log('Received bracket request:', data);
+
+        // Collect all data for that year
+        const bracket_info = {
+            year: data.year
+        }
+
+
                 
-        const game_info = {
-            team1Seed: data.team1,  // Changed from data.team1Seed
-            team2Seed: data.team2,  // Changed from data.team2Seed
-            round: data.round,
-            team1Region: data.team1Region,
-            team2Region: data.team2Region,
-            gameNumber: data.gameNumber,
+        // Create a tournament bracket object for the ai to fill out
+        // order is 1 = east, 2 = west, 3 = south, 4 = midwest
+        const bracket = {
             year: data.year,
-            id: data.round + data.region + data.gameNumber,
-            team1Preference: data.team1Preference || null,
-            team2Preference: data.team2Preference || null
-        }
-
-        // Validate required fields
-        if (!game_info.team1Seed || !game_info.team2Seed) {
-            console.error('Missing required team information');
-            return;
-        }
-
-        // Move preference check after game_info is created
-        if (game_info.team1Preference || game_info.team2Preference) {
-            if (game_info.team1Preference === 'Positive') {
-                game_info.team1Preference = 'I have a positive preference for this team. Add a positive preference for this team, and have them win if it makes sense.';
-            } else if (game_info.team1Preference === 'Negative') {
-                game_info.team1Preference = 'I have a negative preference for this team. Add a negative preference for this team, and have them lose if it makes sense.';
+            round1: {
+                name: TournamentRound.FIRST_ROUND,
+                matchups: [
+                    {
+                        team1: `East/${data.year}/1`,
+                        team2: `East/${data.year}/16`
+                    },
+                    {
+                        team1: `East/${data.year}/8`,
+                        team2: `East/${data.year}/9`
+                    },
+                    {
+                        team1: `East/${data.year}/5`,
+                        team2: `East/${data.year}/12`
+                    },
+                    {
+                        team1: `East/${data.year}/4`,
+                        team2: `East/${data.year}/13`
+                    },
+                    {
+                        team1: `East/${data.year}/6`,
+                        team2: `East/${data.year}/11`
+                    },
+                    {
+                        team1: `East/${data.year}/3`,
+                        team2: `East/${data.year}/14`
+                    },
+                    {
+                        team1: `East/${data.year}/7`,
+                        team2: `East/${data.year}/10`
+                    },
+                    {
+                        team1: `East/${data.year}/2`,
+                        team2: `East/${data.year}/15`
+                    },
+                    {
+                        team1: `West/${data.year}/1`,
+                        team2: `West/${data.year}/16`
+                    },
+                    {
+                        team1: `West/${data.year}/8`,
+                        team2: `West/${data.year}/9`
+                    },
+                    {
+                        team1: `West/${data.year}/5`,
+                        team2: `West/${data.year}/12`
+                    },
+                    {
+                        team1: `West/${data.year}/4`,
+                        team2: `West/${data.year}/13`
+                    },
+                    {
+                        team1: `West/${data.year}/6`,
+                        team2: `West/${data.year}/11`
+                    },
+                    {
+                        team1: `West/${data.year}/3`,
+                        team2: `West/${data.year}/14`
+                    },
+                    {
+                        team1: `West/${data.year}/7`,
+                        team2: `West/${data.year}/10`
+                    },
+                    {
+                        team1: `West/${data.year}/2`,
+                        team2: `West/${data.year}/15`
+                    },
+                    {
+                        team1: `South/${data.year}/1`,
+                        team2: `South/${data.year}/16`
+                    },
+                    {
+                        team1: `South/${data.year}/8`,
+                        team2: `South/${data.year}/9`
+                    },
+                    {
+                        team1: `South/${data.year}/5`,
+                        team2: `South/${data.year}/12`
+                    },
+                    {
+                        team1: `South/${data.year}/4`,
+                        team2: `South/${data.year}/13`
+                    },
+                    {
+                        team1: `South/${data.year}/6`,
+                        team2: `South/${data.year}/11`
+                    },
+                    {
+                        team1: `South/${data.year}/3`,
+                        team2: `South/${data.year}/14`
+                    },
+                    {
+                        team1: `South/${data.year}/7`,
+                        team2: `South/${data.year}/10`
+                    },
+                    {
+                        team1: `South/${data.year}/2`,
+                        team2: `South/${data.year}/15`
+                    },
+                    {
+                        team1: `Midwest/${data.year}/1`,
+                        team2: `Midwest/${data.year}/16`
+                    },
+                    {
+                        team1: `Midwest/${data.year}/8`,
+                        team2: `Midwest/${data.year}/9`
+                    },
+                    {
+                        team1: `Midwest/${data.year}/5`,
+                        team2: `Midwest/${data.year}/12`
+                    },
+                    {
+                        team1: `Midwest/${data.year}/4`,
+                        team2: `Midwest/${data.year}/13`
+                    },
+                    {
+                        team1: `Midwest/${data.year}/6`,
+                        team2: `Midwest/${data.year}/11`
+                    },
+                    {
+                        team1: `Midwest/${data.year}/3`,
+                        team2: `Midwest/${data.year}/14`
+                    },
+                    {
+                        team1: `Midwest/${data.year}/7`,
+                        team2: `Midwest/${data.year}/10`
+                    },
+                    {
+                        team1: `Midwest/${data.year}/2`,
+                        team2: `Midwest/${data.year}/15`
+                    }
+                ]
+            },
+            round2: {
+                name: TournamentRound.SECOND_ROUND,
+                matchups: [
+                    {
+                        team1: 'Winner of round1 match1',
+                        team2: 'Winner of round1 match2'
+                    },
+                    {
+                        team1: 'Winner of round1 match3',
+                        team2: 'Winner of round1 match4'
+                    },
+                    {
+                        team1: 'Winner of round1 match5',
+                        team2: 'Winner of round1 match6'
+                    },
+                    {
+                        team1: 'Winner of round1 match7',
+                        team2: 'Winner of round1 match8'
+                    },
+                    {
+                        team1: 'Winner of round1 match9',
+                        team2: 'Winner of round1 match10'
+                    },
+                    {
+                        team1: 'Winner of round1 match11',
+                        team2: 'Winner of round1 match12'
+                    },
+                    {
+                        team1: 'Winner of round1 match13',
+                        team2: 'Winner of round1 match14'
+                    },
+                    {
+                        team1: 'Winner of round1 match15',
+                        team2: 'Winner of round1 match16'
+                    },
+                    {
+                        team1: 'Winner of round1 match17',
+                        team2: 'Winner of round1 match18'
+                    },
+                    {
+                        team1: 'Winner of round1 match19',
+                        team2: 'Winner of round1 match20'
+                    },
+                    {
+                        team1: 'Winner of round1 match21',
+                        team2: 'Winner of round1 match22'
+                    },
+                    {
+                        team1: 'Winner of round1 match23',
+                        team2: 'Winner of round1 match24'
+                    },
+                    {
+                        team1: 'Winner of round1 match25',
+                        team2: 'Winner of round1 match26'
+                    },
+                    {
+                        team1: 'Winner of round1 match27',
+                        team2: 'Winner of round1 match28'
+                    },
+                    {
+                        team1: 'Winner of round1 match29',
+                        team2: 'Winner of round1 match30'
+                    },
+                    {
+                        team1: 'Winner of round1 match31',
+                        team2: 'Winner of round1 match32'
+                    }
+                ]
+            },
+            round3: {
+                name: TournamentRound.SWEET_16,
+                matchups: [
+                    {
+                        team1: 'Winner of round2 match1',
+                        team2: 'Winner of round2 match2'
+                    },
+                    {
+                        team1: 'Winner of round2 match3',
+                        team2: 'Winner of round2 match4'
+                    },
+                    {
+                        team1: 'Winner of round2 match5',
+                        team2: 'Winner of round2 match6'
+                    },
+                    {
+                        team1: 'Winner of round2 match7',
+                        team2: 'Winner of round2 match8'
+                    },
+                    {
+                        team1: 'Winner of round2 match9',
+                        team2: 'Winner of round2 match10'
+                    },
+                    {
+                        team1: 'Winner of round2 match11',
+                        team2: 'Winner of round2 match12'
+                    },
+                    {
+                        team1: 'Winner of round2 match13',
+                        team2: 'Winner of round2 match14'
+                    },
+                    {
+                        team1: 'Winner of round2 match15',
+                        team2: 'Winner of round2 match16'
+                    }
+                ]
+            },
+            round4: {
+                name: TournamentRound.ELITE_EIGHT,
+                matchups: [
+                    {
+                        team1: 'Winner of round3 match1',
+                        team2: 'Winner of round3 match2'
+                    },
+                    {
+                        team1: 'Winner of round3 match3',
+                        team2: 'Winner of round3 match4'
+                    },
+                    {
+                        team1: 'Winner of round3 match5',
+                        team2: 'Winner of round3 match6'
+                    },
+                    {
+                        team1: 'Winner of round3 match7',
+                        team2: 'Winner of round3 match8'
+                    }
+                ]
+            },
+            round5: {
+                name: TournamentRound.FINAL_FOUR,
+                matchups: [
+                    {
+                        team1: 'Winner of round4 match1',
+                        team2: 'Winner of round4 match2'
+                    },
+                    {
+                        team1: 'Winner of round4 match3',
+                        team2: 'Winner of round4 match4'
+                    }
+                ]
+            },
+            round6: {
+                name: TournamentRound.CHAMPIONSHIP,
+                matchups: [
+                    {
+                        team1: 'Winner of round5 match1',
+                        team2: 'Winner of round5 match2'
+                    }
+                ]
             }
-            
-            if (game_info.team2Preference === 'Positive') {
-                game_info.team2Preference = 'I have a positive preference for this team. Add a positive preference for this team, and have them win if it makes sense.';
-            } else if (game_info.team2Preference === 'Negative') {
-                game_info.team2Preference = 'I have a negative preference for this team. Add a negative preference for this team, and have them lose if it makes sense.';
-            }
-        }
-
-        // Validate round
-        if (!Object.values(TournamentRound).includes(game_info.round)) {
-            console.error('Invalid tournament round');
-            return;
-        }
-
-        console.log('Processing game info:', game_info);
+        };
         
         try {
-            let team1Stats = await getTeamStats(game_info.team1Seed, game_info.year, game_info.team1Region);
-            let team2Stats = await getTeamStats(game_info.team2Seed, game_info.year, game_info.team2Region);
-            console.log(`Team 1 Stats for ${game_info.year}:`, team1Stats);
-            console.log(`Team 2 Stats for ${game_info.year}:`, team2Stats);
 
-            if (!team1Stats.TeamName || !team2Stats.TeamName) {
-                throw new Error('Missing team information in stats');
+            //Get the team stats for each team
+            for (let i = 0; i < bracket.round1.matchups.length; i++) {
+                let team1Stats = await getTeamStats(bracket.round1.matchups[i].team1, data.year);
+                let team2Stats = await getTeamStats(bracket.round1.matchups[i].team2, data.year);
+                console.log(`Team 1 Stats for ${bracket.year}:`, team1Stats);
+                console.log(`Team 2 Stats for ${bracket.year}:`, team2Stats);
+
+                // Update the bracket object with the stats
+                bracket.round1.matchups[i].team1Stats = team1Stats;
+                bracket.round1.matchups[i].team2Stats = team2Stats;
             }
 
-            // Update game_info with actual team names
-            game_info.team1 = team1Stats.TeamName;
-            game_info.team2 = team2Stats.TeamName;
+            // Request AI response
+            let aiResponse = await requestAIResponse(bracket);
+            let bracketData = extractJsonFromResponse(aiResponse);
+            // console.log('Bracket data:', bracketData);
+            let validatedBracketData = validateAIResponse(bracketData, bracket);
+            console.log('Validated bracket data:', validatedBracketData);
+            // publish the bracket data back to user
+            client.publish('bracket/response', JSON.stringify(validatedBracketData));
 
-            let winningTeam, losingTeam, winningReason, winPercentage;
-
-            // Fix the preference check to use game_info properties
-            const ruleResult = (!game_info.team1Preference && !game_info.team2Preference) 
-                ? checkSeedRules(team1Stats, team2Stats, game_info)
-                : null;
-
-            if (ruleResult) {
-                ({winningTeam, losingTeam, winningReason} = ruleResult);
-                winPercentage = 100; // Always 100% for seed rules
-            } else {
-                const result = await getGameWinner(game_info, team1Stats, team2Stats);
-                [winningTeam, losingTeam, winningReason, winPercentage] = result;
-            }
-
-            console.log(`Winner: ${winningTeam}, Loser: ${losingTeam}, Win%: ${winPercentage}%, Reason: ${winningReason}`);
-            client.publish('matchup/response', JSON.stringify({
-                team1: game_info.team1,
-                team2: game_info.team2,
-                winner: winningTeam,
-                loser: losingTeam,
-                reason: winningReason,
-                winPercentage: winPercentage
-            }));
 
         } catch (error) {
             console.error('Error processing game:', error);
@@ -175,26 +413,30 @@ client.on('error', (error) => {
     console.error('Error:', error);
 });
 
-const getTeamStats = (team, year, region) => {
+const getTeamStats = (team, year) => {
     return new Promise((resolve, reject) => {
-        console.log(`Requesting stats for ${team} (${year})`);
+        console.log(`Requesting stats for ${team}`);
         const timeout = setTimeout(() => {
             reject(new Error('Timeout waiting for team stats'));
         }, 5000);
 
         const messageHandler = (topic, message) => {
             console.log(`Received message on topic: ${topic}`);
-            if (topic === `data/${region}/${year}/${team}`) {
+            if (topic === `data/${team}`) {
                 clearTimeout(timeout);
                 client.removeListener('message', messageHandler);
-                client.unsubscribe(`data/${region}/${year}/${team}`);
+                client.unsubscribe(`data/${team}`);
                 try {
                     const data = JSON.parse(message.toString());
                     if (data === null) {
                         console.log(`No stats found for ${team} (${year})`);
                         resolve({}); // Return empty object instead of null
                     } else {
-                        console.log(`Successfully retrieved stats for ${team} (${year})`);
+                        // Log full data structure for debugging
+                        console.log(`Successfully retrieved stats for ${team} (${year}):`);
+                        console.log(`Stats keys: ${Object.keys(data).join(', ')}`);
+                        console.log(`Team name: ${data.team_name || 'undefined'}`);
+                        console.log(`Stats complete: ${data.team_name && data.seed ? 'Yes' : 'No'}`);
                         resolve(data);
                     }
                 } catch (error) {
@@ -204,148 +446,230 @@ const getTeamStats = (team, year, region) => {
             }
         };
 
-        client.subscribe(`data/${region}/${year}/${team}`);
+        client.subscribe(`data/${team}`);
         client.on('message', messageHandler);
-        client.publish(`get/${region}/${year}/${team}`, '');
+        client.publish(`get/${team}`, '');
     });
 };
 
-const validateAIResponse = (data, game_info) => {
-    // Check if all required fields exist
-    const requiredFields = ['Winning Team', 'Losing Team', 'Winning Reason', 'Win Percentage'];
-    const hasAllFields = requiredFields.every(field => {
-        if (field === 'Win Percentage') {
-            return typeof data[field] === 'number' && 
-                   data[field] >= 0 && 
-                   data[field] <= 100;
-        }
-        return typeof data[field] === 'string' && data[field].trim() !== '';
-    });
+const validateAIResponse = (data, bracket_info) => {
+    // Check if data is a valid object
+    if (!data || typeof data !== 'object') {
+        throw new Error('Invalid response format: not a valid JSON object');
+    }
     
-    if (!hasAllFields) {
-        throw new Error('AI response missing required fields, contains empty values, or invalid win percentage');
-    }
-
-    // Verify teams mentioned are actually the teams in the matchup
-    const teams = [game_info.team1, game_info.team2];
-    if (!teams.includes(data['Winning Team']) || !teams.includes(data['Losing Team'])) {
-        throw new Error('AI response contains invalid team names');
-    }
-
-    // Verify winning and losing teams are different
-    if (data['Winning Team'] === data['Losing Team']) {
-        throw new Error('Winning and losing teams cannot be the same');
-    }
-
-    return {
-        winningTeam: data['Winning Team'],
-        losingTeam: data['Losing Team'],
-        winningReason: data['Winning Reason'],
-        winPercentage: data['Win Percentage']
-    };
-};
-
-const MAX_RETRIES = 3;
-
-const requestAIResponse = async (game_info, team1Stats, team2Stats, attempt = 1) => {
-    return new Promise((resolve, reject) => {
-        console.log(`Requesting game winner (attempt ${attempt}/${MAX_RETRIES}) for ${game_info.team1} vs ${game_info.team2}`);
-        const timeout = setTimeout(() => {
-            reject(new Error('Timeout waiting for game winner'));
-        }, 30000); // Increased timeout to 30 seconds
-
-        const messageHandler = (topic, message) => {
-            if (topic === 'deepseek/response') {
-                clearTimeout(timeout);
-                client.removeListener('message', messageHandler);
-                client.unsubscribe('deepseek/response');
-                resolve(message);
-            }
-        };
-
-        const message = {
-            id: game_info.id,
-            prompt: `Attempt ${attempt}/${MAX_RETRIES}: Who will win the matchup between ${game_info.team1} and ${game_info.team2}? 
-            ${game_info.team1Preference ? `Note for ${game_info.team1}: ${game_info.team1Preference}` : ''}
-            ${game_info.team2Preference ? `Note for ${game_info.team2}: ${game_info.team2Preference}` : ''}
-            Your response MUST be a JSON object with EXACTLY these four fields:
-            {
-                "Winning Team": "${game_info.team1} or ${game_info.team2}",
-                "Losing Team": "${game_info.team1} or ${game_info.team2}",
-                "Winning Reason": "Your explanation here",
-                "Win Percentage": number between 0 and 100
-            }
-            The team names must exactly match what was provided. Win Percentage must be a number. No other format will be accepted.`,
-            team1: team1Stats,
-            team2: team2Stats
-        };
-
-        client.subscribe('deepseek/response');
-        client.on('message', messageHandler);
-        client.publish('deepseek/request', JSON.stringify(message));
-    });
-};
-
-// Add this new function
-const extractJsonFromResponse = (response) => {
-    try {
-        const parsed = JSON.parse(response);
-        if (parsed.content) {
-            // Extract JSON from markdown code block
-            const match = parsed.content.match(/```json\n([\s\S]*?)\n```/);
-            if (match && match[1]) {
-                return JSON.parse(match[1]);
-            }
-        }
-        return parsed; // fallback to original parse if no markdown wrapper
-    } catch (error) {
-        console.error('Error extracting JSON from response:', error);
-        console.debug('Raw response:', response);
-        throw error;
-    }
-};
-
-const calculateUpset = (validatedResult) => {
-    const roll = Math.floor(Math.random() * 100) + 1; // 1-100
-    console.log(`Win Percentage: ${validatedResult.winPercentage}%, Rolled: ${roll}`);
+    // Initialize validated result
+    const validatedResult = {};
     
-    if (roll > validatedResult.winPercentage) {
-        // Upset occurs
-        return {
-            winningTeam: validatedResult.losingTeam,
-            losingTeam: validatedResult.winningTeam,
-            winningReason: `UPSET! ${validatedResult.losingTeam} defied the ${validatedResult.winPercentage}% odds against them!`,
-            winPercentage: 100 - validatedResult.winPercentage // Invert the win percentage for upsets
-        };
+    // Check each round
+    for (const round in data) {
+        if (!data[round] || typeof data[round] !== 'object') {
+            throw new Error(`Invalid format for round ${round}`);
+        }
+        
+        validatedResult[round] = { matchups: {} };
+        
+        // Check each matchup in the round
+        for (const matchup in data[round].matchups) {
+            const match = data[round].matchups[matchup];
+            
+            // Validate required fields
+            if (!match || typeof match !== 'object') {
+                throw new Error(`Invalid format for ${round} ${matchup}`);
+            }
+            
+            if (!match["Winning Team"] || typeof match["Winning Team"] !== 'string') {
+                throw new Error(`Missing or invalid Winning Team for ${round} ${matchup}`);
+            }
+            
+            if (!match["Losing Team"] || typeof match["Losing Team"] !== 'string') {
+                throw new Error(`Missing or invalid Losing Team for ${round} ${matchup}`);
+            }
+            
+            if (!match["Winning Reason"] || typeof match["Winning Reason"] !== 'string') {
+                throw new Error(`Missing or invalid Winning Reason for ${round} ${matchup}`);
+            }
+            
+            // Check win percentage is a number between 0 and 100
+            if (match["Win Percentage"] === undefined || 
+                typeof match["Win Percentage"] !== 'number' || 
+                match["Win Percentage"] < 0 || 
+                match["Win Percentage"] > 100) {
+                throw new Error(`Invalid Win Percentage for ${round} ${matchup} - must be a number between 0 and 100`);
+            }
+            
+            // Store validated matchup
+            validatedResult[round].matchups[matchup] = {
+                "Winning Team": match["Winning Team"],
+                "Losing Team": match["Losing Team"],
+                "Winning Reason": match["Winning Reason"],
+                "Win Percentage": match["Win Percentage"]
+            };
+        }
     }
     
     return validatedResult;
 };
 
-const getGameWinner = async (game_info, team1Stats, team2Stats) => {
-    let attempt = 1;
-    while (attempt <= MAX_RETRIES) {
-        try {
-            const message = await requestAIResponse(game_info, team1Stats, team2Stats, attempt);
-            console.debug('Raw AI response:', message.toString()); // Add debug logging
-            const rawData = extractJsonFromResponse(message.toString());
-            const validatedResult = validateAIResponse(rawData, game_info);
-            console.log(`Successfully validated game winner on attempt ${attempt}`);
+const MAX_RETRIES = 3;
+
+// Format bracket for AI consumption
+const formatBracketForAI = (bracket) => {
+    let formattedBracket = '';
+    
+    // Format each round
+    for (let roundNum = 1; roundNum <= 6; roundNum++) {
+        const roundKey = `round${roundNum}`;
+        if (bracket[roundKey]) {
+            formattedBracket += `\n${bracket[roundKey].name}:\n`;
             
-            // Calculate potential upset
-            const finalResult = calculateUpset(validatedResult);
-            return [
-                finalResult.winningTeam, 
-                finalResult.losingTeam, 
-                finalResult.winningReason,
-                finalResult.winPercentage // Add win percentage to return array
-            ];
-        } catch (error) {
-            console.error(`Attempt ${attempt} failed:`, error.message);
-            if (attempt === MAX_RETRIES) {
-                throw new Error(`Failed to get valid AI response after ${MAX_RETRIES} attempts`);
-            }
-            attempt++;
+            // Format each matchup in the round
+            bracket[roundKey].matchups.forEach((matchup, index) => {
+                let team1 = matchup.team1;
+                let team2 = matchup.team2;
+                
+                // Extract seed and team name for first round
+                if (roundNum === 1) {
+                    // Format: "Region/Year/Seed" -> "#Seed TeamName"
+                    if (matchup.team1Stats && matchup.team1Stats.team_name) {
+                        const seed1 = team1.split('/')[2]; // Extract seed from path
+                        team1 = `#${seed1} ${matchup.team1Stats.team_name}`;
+                    }
+                    
+                    if (matchup.team2Stats && matchup.team2Stats.team_name) {
+                        const seed2 = team2.split('/')[2]; // Extract seed from path
+                        team2 = `#${seed2} ${matchup.team2Stats.team_name}`;
+                    }
+                }
+                
+                formattedBracket += `- Matchup ${index + 1}: ${team1} vs ${team2}\n`;
+            });
         }
     }
+    
+    return formattedBracket;
 };
+
+const requestAIResponse = async (bracket, attempt = 1) => {
+    return new Promise((resolve, reject) => {
+        console.log(`Requesting bracket (attempt ${attempt}/${MAX_RETRIES})`);
+        const timeout = setTimeout(() => {
+            reject(new Error('Timeout waiting for Bracket AI response'));
+        }, 60000); // Increased timeout to 60 seconds
+
+        const messageHandler = (topic, message) => {
+            if (topic === 'chatgpt/response') {
+                clearTimeout(timeout);
+                client.removeListener('message', messageHandler);
+                client.unsubscribe('chatgpt/response');
+                resolve(message);
+            }
+        };
+
+        // Format seed rules for the AI
+        let seedRulesInfo = "Historical Seed Performance Rules:\n";
+        for (const [seed, rule] of Object.entries(seedRules)) {
+            seedRulesInfo += `- #${seed} Seeds: ${rule.message} (Maximum round: ${rule.maxRound})\n`;
+        }
+        
+        // Create tournament round information
+        let roundInfo = "Tournament Rounds in Order:\n";
+        roundOrder.forEach((round, index) => {
+            roundInfo += `${index + 1}. ${round}\n`;
+        });
+        
+        // Format the bracket for AI consumption
+        const formattedBracket = formatBracketForAI(bracket);
+
+        // Create a JSON structure template
+        const jsonTemplate = {
+            "round1": {
+                "matchups": {
+                    "match1": {
+                        "Winning Team": "Team Name",
+                        "Losing Team": "Team Name",
+                        "Winning Reason": "Explanation",
+                        "Win Percentage": 75
+                    }
+                    // Add more matchups as needed
+                }
+            }
+            // Similar structure for other rounds
+        };
+
+        const message = {
+            prompt: `Attempt ${attempt}/${MAX_RETRIES}: You MUST respond with ONLY a valid JSON object for a March Madness bracket for ${bracket.year}.
+
+CRITICAL: Your entire response must be a valid, parseable JSON object with no additional text, explanations, or markdown. 
+
+The JSON must follow this exact structure (with actual team names and data):
+\`\`\`json
+{
+  "round1": {
+    "matchups": {
+      "match1": {
+        "Winning Team": "Exact team name as provided",
+        "Losing Team": "Exact team name as provided",
+        "Winning Reason": "Brief explanation",
+        "Win Percentage": 75
+      },
+      "match2": { ... and so on for all matches ... }
+    }
+  },
+  "round2": {
+    "matchups": { ... similar structure ... }
+  }
+  ... continue for all 6 rounds ...
+}
+\`\`\`
+
+${seedRulesInfo}
+${roundInfo}
+
+Use these historical seed performance rules when making predictions.
+
+BRACKET STRUCTURE TO FILL OUT:
+${formattedBracket}
+
+DO NOT include any explanatory text outside the JSON structure. The JSON must be the ONLY content of your response.`,
+            id: "bracket-" + Date.now()
+        };
+
+        client.subscribe('chatgpt/response');
+        client.on('message', messageHandler);
+        client.publish('chatgpt/request', JSON.stringify(message));
+    });
+};
+
+const extractJsonFromResponse = (response) => {
+    try {
+        const parsed = JSON.parse(response);
+        if (parsed.content) {
+            // First try to find JSON object in the content
+            try {
+                const jsonStart = parsed.content.indexOf('{');
+                const jsonEnd = parsed.content.lastIndexOf('}');
+                if (jsonStart !== -1 && jsonEnd !== -1) {
+                    const jsonString = parsed.content.substring(jsonStart, jsonEnd + 1);
+                    return JSON.parse(jsonString);
+                }
+                
+                // Try extracting JSON from markdown code block
+                const match = parsed.content.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
+                if (match && match[1]) {
+                    return JSON.parse(match[1]);
+                }
+            } catch (innerError) {
+                console.error('Error parsing JSON content:', innerError);
+                throw new Error('Could not extract valid JSON from response');
+            }
+        }
+        return parsed; // fallback to original parse if no content field
+    } catch (error) {
+        console.error('Error extracting JSON from response:', error);
+        console.debug('Raw response:', response.toString().substring(0, 500) + '...');
+        throw error;
+    }
+};
+
+
